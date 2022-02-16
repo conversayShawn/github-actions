@@ -7,15 +7,17 @@ on: push
 
 jobs:
   install:
-  strategy:
+  
+    name: Install NPM and Cypress
+    runs-on: ubuntu-18.04
+    strategy:
       fail-fast: false
       matrix:
         # run copies of the current job in parallel
         containers: [1, 2, 3, 4, 5]
-    name: Install NPM and Cypress
-    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      
 
       # install a specific version of Node using
       # https://github.com/actions/setup-node
