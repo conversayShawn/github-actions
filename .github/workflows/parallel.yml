@@ -7,11 +7,6 @@ on: push
 
 jobs:
   install:
-  strategy:
-      fail-fast: false
-      matrix:
-        # run copies of the current job in parallel
-        containers: [1, 2, 3, 4, 5]
     name: Install NPM and Cypress
     runs-on: ubuntu-18.04
     steps:
@@ -71,7 +66,12 @@ jobs:
       #     npx cypress info
   # Duplicate job definitions - GitHub YAML does not support
   # anchor definitions yet, thus we cannot put same steps into a template object yet
-  test1:
+  Parallel Tests:
+  strategy:
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        containers: [1, 2, 3, 4, 5]
     name: Cypress test 1
     runs-on: ubuntu-18.04
     needs: install
