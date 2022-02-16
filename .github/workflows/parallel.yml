@@ -7,6 +7,11 @@ on: push
 
 jobs:
   install:
+  strategy:
+      fail-fast: false
+      matrix:
+        # run copies of the current job in parallel
+        containers: [1, 2, 3, 4, 5]
     name: Install NPM and Cypress
     runs-on: ubuntu-18.04
     steps:
@@ -127,63 +132,63 @@ jobs:
           name: videos
           path: cypress/videos
 
-  test2:
-    name: Cypress test 2
-    runs-on: ubuntu-18.04
-    needs: install
-    steps:
-      - uses: actions/checkout@master
+  # test2:
+  #   name: Cypress test 2
+  #   runs-on: ubuntu-18.04
+  #   needs: install
+  #   steps:
+  #     - uses: actions/checkout@master
 
-      # install a specific version of Node using
-      # https://github.com/actions/setup-node
-      - name: Use Node.js v12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+  #     # install a specific version of Node using
+  #     # https://github.com/actions/setup-node
+  #     - name: Use Node.js v12
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: 12
 
-      # Restore just local node_modules and the Cypress binary archives.
-      - name: Cache Cypress binary
-        uses: actions/cache@v1
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-${{ github.ref }}-
-      - name: Cache local node_modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-modules-
-      # check the restored Cypress binary
-      - name: Check binary
-        run: |
-          npx cypress cache path
-          npx cypress cache list
-      # Starts local server, then runs Cypress tests and records results on the dashboard
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          record: true
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     # Restore just local node_modules and the Cypress binary archives.
+  #     - name: Cache Cypress binary
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ~/.cache/Cypress
+  #         key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
+  #         restore-keys: |
+  #           cypress-${{ runner.os }}-cypress-${{ github.ref }}-
+  #     - name: Cache local node_modules
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-node-modules-${{ github.ref }}-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-node-modules-
+  #     # check the restored Cypress binary
+  #     - name: Check binary
+  #       run: |
+  #         npx cypress cache path
+  #         npx cypress cache list
+  #     # Starts local server, then runs Cypress tests and records results on the dashboard
+  #     - name: Cypress run
+  #       uses: cypress-io/github-action@v2
+  #       with:
+  #         record: true
+  #       env:
+  #         # pass the Dashboard record key as an environment variable
+  #         CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+  #         # pass GitHub token to allow accurately detecting a build vs a re-run build
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Save videos and screenshots as test artifacts
-      # https://github.com/actions/upload-artifact
-      - uses: actions/upload-artifact@master
-        # there might be no screenshots created when:
-        # - there are no test failures
-        # so only upload screenshots if previous step has failed
-        if: failure()
-        with:
-          name: screenshots
-          path: cypress/screenshots
-      # video should always be generated
-      - uses: actions/upload-artifact@master
-        with:
-          name: videos
-          path: cypress/videos
+  #     # Save videos and screenshots as test artifacts
+  #     # https://github.com/actions/upload-artifact
+  #     - uses: actions/upload-artifact@master
+  #       # there might be no screenshots created when:
+  #       # - there are no test failures
+  #       # so only upload screenshots if previous step has failed
+  #       if: failure()
+  #       with:
+  #         name: screenshots
+  #         path: cypress/screenshots
+  #     # video should always be generated
+  #     - uses: actions/upload-artifact@master
+  #       with:
+  #         name: videos
+  #         path: cypress/videos
