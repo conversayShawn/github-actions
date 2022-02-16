@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-        with:
-            # Disable running of tests within install job
-            runTests: false
 
       # install a specific version of Node using
       # https://github.com/actions/setup-node
