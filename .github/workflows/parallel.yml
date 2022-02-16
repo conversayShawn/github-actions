@@ -162,15 +162,15 @@ jobs:
           npx cypress cache path
           npx cypress cache list
       # Starts local server, then runs Cypress tests and records results on the dashboard
-      - name: Cypress tests
-        run: |
-          npm start &
-          npx cypress run --record --parallel --group "Parallel 2x"
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          record: true
         env:
-          # place your secret record key at
-          # https://github.com/cypress-io/cypress-example-kitchensink/settings/secrets
-          CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
-          TERM: xterm
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Save videos and screenshots as test artifacts
       # https://github.com/actions/upload-artifact
