@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/conversaShawn/github-actions/issues"
   },
-  "homepage": "https://github.com/conversaShawn/github-actions#readme"
+  "homepage": "https://github.com/conversaShawn/github-actions#readme",
+  "devDependencies": {
+    "cypress": "^9.5.0"
+  }
 }
