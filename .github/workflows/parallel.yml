@@ -11,11 +11,19 @@ jobs:
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Cypress run
+      - name: Save build folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          if-no-files-found: error
+          path: build
+
+      - name: Cypress install
         uses: cypress-io/github-action@v2
         with:
           # Disable running of tests within install job
           runTests: false
+          build: yarn build
   ui-chrome-tests:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
@@ -26,14 +34,14 @@ jobs:
         # run copies of the current job in parallel
         containers: [1, 2, 3, 4, 5]
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      # - name: Download the build folders
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: build
-          # path: build
+      - name: Download the build folders
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
 
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
