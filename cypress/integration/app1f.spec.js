@@ -243,7 +243,7 @@ describe("example to-do app", () => {
     cy.get("[data-test=new-todo]").type(`${newItem}{enter}`);
 
     cy.get(".todo-list li")
-      .should("have.length", 3)
+      .should("have.length", 30)
       .last()
       .should("have.text", newItem);
   });
@@ -306,7 +306,7 @@ describe("example to-do app", () => {
   });
 
   it("displays two todo items by default", () => {
-    cy.get(".todo-list li").should("have.length", 2);
+    cy.get(".todo-list li").should("have.length", 20);
 
     cy.get(".todo-list li").first().should("have.text", "Pay electric bill");
     cy.get(".todo-list li").last().should("have.text", "Walk the dog");
@@ -318,7 +318,7 @@ describe("example to-do app", () => {
     cy.get("[data-test=new-todo]").type(`${newItem}{enter}`);
 
     cy.get(".todo-list li")
-      .should("have.length", 3)
+      .should("have.length", 30)
       .last()
       .should("have.text", newItem);
   });
@@ -346,7 +346,7 @@ describe("example to-do app", () => {
       cy.contains("Active").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .first()
         .should("have.text", "Walk the dog");
 
@@ -357,7 +357,7 @@ describe("example to-do app", () => {
       cy.contains("Completed").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .first()
         .should("have.text", "Pay electric bill");
 
@@ -368,7 +368,7 @@ describe("example to-do app", () => {
       cy.contains("Clear completed").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .should("not.have.text", "Pay electric bill");
 
       cy.contains("Clear completed").should("not.exist");
@@ -381,7 +381,7 @@ describe("example to-do app", () => {
   });
 
   it("displays two todo items by default", () => {
-    cy.get(".todo-list li").should("have.length", 2);
+    cy.get(".todo-list li").should("have.length", 20);
 
     cy.get(".todo-list li").first().should("have.text", "Pay electric bill");
     cy.get(".todo-list li").last().should("have.text", "Walk the dog");
@@ -393,7 +393,7 @@ describe("example to-do app", () => {
     cy.get("[data-test=new-todo]").type(`${newItem}{enter}`);
 
     cy.get(".todo-list li")
-      .should("have.length", 3)
+      .should("have.length", 30)
       .last()
       .should("have.text", newItem);
   });
@@ -421,7 +421,7 @@ describe("example to-do app", () => {
       cy.contains("Active").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .first()
         .should("have.text", "Walk the dog");
 
@@ -432,7 +432,7 @@ describe("example to-do app", () => {
       cy.contains("Completed").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .first()
         .should("have.text", "Pay electric bill");
 
@@ -443,7 +443,7 @@ describe("example to-do app", () => {
       cy.contains("Clear completed").click();
 
       cy.get(".todo-list li")
-        .should("have.length", 1)
+        .should("have.length", 10)
         .should("not.have.text", "Pay electric bill");
 
       cy.contains("Clear completed").should("not.exist");
