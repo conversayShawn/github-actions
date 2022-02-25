@@ -33,3 +33,8 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cypress tests with debug logs
+        uses: cypress-io/github-action@v2
+        env:
+          # print all debugging
+          DEBUG: 'cypress:*'
