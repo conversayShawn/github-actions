@@ -6,8 +6,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+      # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
@@ -16,6 +15,8 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # running here is also fine, but you will need to look in `cypress run` instead of `Cypress tests with debug logs`
+          # DEBUG: 'cypress:*'
       - name: Cypress tests with debug logs
         uses: cypress-io/github-action@v2
         env:
