@@ -19,6 +19,5 @@ jobs:
           # DEBUG: 'cypress:*'
       - name: Cypress tests with debug logs
         uses: cypress-io/github-action@v2
-        env:
-          # print all debugging
-          DEBUG: 'cypress:*'
+        with:
+          build: npx cypress info
