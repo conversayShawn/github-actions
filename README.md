@@ -5,4 +5,5 @@ This branch adds [debugging log](https://docs.cypress.io/guides/references/troub
 ## Notes:
 - When running in parallel, a log will be printed for each machine/node/pod etc
 - This example does not remove ASCII characters, so logs will print in several colors. This functionality can be added by adding `NO_COLOR = '1'` as an env var
+- Logs can be added to an existing workflow or broken out into their own workflow
 
