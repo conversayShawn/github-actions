@@ -1,6 +1,6 @@
 # Testing GitHub Actions w/ Cypress
 
-This branch runs the example Cypress Tests on a single machine in GitHub Actions. 
+This branch runs the example Cypress Tests on a 3 machines in GitHub Actions. 
 
 ## Notes:
 - No `cypress run` run command is necessary, only a push to GitHub
