@@ -4,6 +4,10 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
+      - name: Print CI env variables
+        run: |
+          npm i -g @bahmutov/print-env@2
+          print-env GITHUB BUILD ACTIONS || true
       - name: Checkout
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly and run all Cypress tests

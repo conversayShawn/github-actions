@@ -12,6 +12,10 @@ jobs:
         # split tests across three containers in parallel
         containers: [1, 2, 3]
     steps:
+      - name: Print CI env variables
+        run: |
+          npm i -g @bahmutov/print-env@2
+          print-env GITHUB BUILD ACTIONS || true
       - name: Checkout
         uses: actions/checkout@v2
 
