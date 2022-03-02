@@ -12,7 +12,7 @@ This repo is to test using [GitHub Actions](https://docs.github.com/en/actions) 
 - branch: [parallel](https://github.com/conversaShawn/github-actions/tree/parallel)
 
 ## Cypress Info
-- branch: []()
+- branch: [cypressInfo](https://github.com/conversaShawn/github-actions/tree/cypressInfo)
 
 ## Status Checks
 - branch: [statusChecks](https://github.com/conversaShawn/github-actions/tree/statusChecks)
