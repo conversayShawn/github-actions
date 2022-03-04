@@ -1,8 +1,10 @@
 # Testing GitHub Actions w/ Cypress
 
-This branch adds [print-env](https://docs.cypress.io/guides/guides/command-line#cypress-info) by [Gleb Bahmutov](https://glebbahmutov.com/) for both a single machine and parallel using 3 containers to detect and print environment variables to assist with debugging
+This branch adds uses a nested Cypress project. It is not uncommon to use a monorepo, but the install can be a little bit tricky
+
+*_UPDATE_* : This branch includes some conditionals to only use a specific config based on the branch name, but will most likely removed at a later date and moved to branch [ignoreSpecConfig](https://github.com/conversaShawn/github-actions/tree/ignoreSpecConfig)
 
 ## Notes:
-- When running in parallel, print-env will be printed for each machine/node/pod etc
-- This example does not remove ASCII characters, so print-env will print in several colors. This functionality can be added by adding `NO_COLOR = '1'` as an env var
-- `print-env` can be added to an existing workflow or broken out into their own workflow
+- Be sure to only install Cypress once by adding `install:false`
+- Be sure to add `working-directory` so GitHub Actions knows where to find your Cypress folder
+- If you are using a different config, be config path is relative to the working directory

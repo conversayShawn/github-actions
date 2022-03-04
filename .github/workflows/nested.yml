@@ -14,7 +14,7 @@ jobs:
       # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name != 'ignoreSpecConfig' }}
+        if: ${{ github.ref_name != 'nestedCypress' }}
         with:
           # installed in previous workflow
           install: false
@@ -31,7 +31,7 @@ jobs:
       # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run other config
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name == 'ignoreSpecConfig' }}
+        if: ${{ github.ref_name == 'nestedCypress' }}
         with:
           install: false
           working-directory: rootapp/nestedApp
