@@ -22,6 +22,7 @@ jobs:
           config-file: cypress.json
           browser: chrome
           record: true
+          tag: doesThisWork?
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
@@ -37,6 +38,7 @@ jobs:
           config-file: cypress/config/ignoreNestedSpecConfig.json
           browser: chrome
           record: true
+          tag: doesThisWork?
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
