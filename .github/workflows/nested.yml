@@ -11,6 +11,7 @@ jobs:
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
+          install: false
           config-file: rootapp/nestedApp/cypress.json
           working-directory: rootapp/nestedApp
           record: true
@@ -24,6 +25,7 @@ jobs:
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name == 'ignoreSpecConfig' }}
         with:
+          install: false
           config-file: rootapp/nestedApp/cypress/config/ignoreNestedSpecConfig.json
           working-directory: rootapp/nestedApp
           record: true
