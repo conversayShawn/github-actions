@@ -16,9 +16,11 @@ jobs:
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
+          # installed in previous workflow
           install: false
           working-directory: rootapp/nestedApp
           config-file: cypress.json
+          browser: chrome
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -33,6 +35,7 @@ jobs:
           install: false
           working-directory: rootapp/nestedApp
           config-file: cypress/config/ignoreNestedSpecConfig.json
+          browser: chrome
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
