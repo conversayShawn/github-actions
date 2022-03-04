@@ -13,11 +13,11 @@ jobs:
         containers: [1, 2, 3]
     steps:
       # because of "record" and "parallel" parameters these containers will load balance all found tests among themselves
-      - name: Cypress run other config
+      - name: Cypress run
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
-          config-file: cypress/config/ignoreSpecConfig.json
+          config-file: cypress.json
           record: true
           parallel: true
           group: 'Actions example'
@@ -28,10 +28,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # because of "record" and "parallel" parameters these containers will load balance all found tests among themselves
-      - name: Cypress run
+      - name: Cypress run other config
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
+          config-file: cypress/config/ignoreSpecConfig.json
           record: true
           parallel: true
           group: 'Actions example'
