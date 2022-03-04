@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Nested Cypress Tests
 on: [push, pull_request]
 jobs:
   cypress-run:
