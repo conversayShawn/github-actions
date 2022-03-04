@@ -11,7 +11,7 @@ jobs:
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
-          config-file: rootApp/nestedApp/cypress.json
+          config-file: rootapp/nestedApp/cypress.json
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -23,7 +23,7 @@ jobs:
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name == 'ignoreSpecConfig' }}
         with:
-          config-file: rootApp/nestedApp/cypress/config/ignoreNestedSpecConfig.json
+          config-file: rootapp/nestedApp/cypress/config/ignoreNestedSpecConfig.json
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
