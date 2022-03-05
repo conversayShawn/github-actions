@@ -16,9 +16,9 @@ jobs:
           # just perform install
           runTests: false
       # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run if NOT branch ignoreSpecConfig
+      - name: Cypress run if NOT branch conditional
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name != 'ignoreSpecConfig' }}
+        if: ${{ github.ref_name != 'conditional' }}
         with:
           # installed in previous workflow
           install: false
@@ -28,23 +28,23 @@ jobs:
           config-file: cypress.json
           browser: chrome
           record: true
-          tag: ignoreSpecConfig
+          tag: conditional
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
       # Same as above with other config based on conditional
-      - name: Cypress run if branch ignoreSpecConfig
+      - name: Cypress run if branch conditional
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name == 'ignoreSpecConfig' }}
+        if: ${{ github.ref_name == 'conditional' }}
         with:
           install: false
           working-directory: rootapp/nestedApp
           config-file: cypress/config/ignoreNestedSpecConfig.json
           browser: chrome
           record: true
-          tag: ignoreSpecConfig
+          tag: conditional
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
