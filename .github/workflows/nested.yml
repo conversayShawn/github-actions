@@ -1,12 +1,16 @@
 name: Nested Cypress Tests
+# run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
   cypress-run:
+    # OS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
       - name: Install dependencies
+        # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
         with:
           # just perform install
@@ -18,17 +22,19 @@ jobs:
         with:
           # installed in previous workflow
           install: false
+          # Cypress path from root
           working-directory: rootapp/nestedApp
+          # relative to working directory root
           config-file: cypress.json
           browser: chrome
           record: true
-          tag: doesThisWork?
+          tag: nestedCypress
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
+      # Same as above with other config based on conditional
       - name: Cypress run other config
         uses: cypress-io/github-action@v2
         if: ${{ github.ref_name == 'nestedCypress' }}
@@ -38,8 +44,7 @@ jobs:
           config-file: cypress/config/ignoreNestedSpecConfig.json
           browser: chrome
           record: true
-          tag: doesThisWork?
+          tag: nestedCypress
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
