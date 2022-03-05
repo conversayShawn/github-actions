@@ -1,17 +1,24 @@
-name: Cypress Tests
+name: Single Machine Cypress Tests printing cypress info
+# run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
-  cypress-run:
+  test:
+    name: Cypress run
+    # OS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run
+        # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
         with:
           record: true
+          # prints in Cypress run workflow
           build: npx cypress info
+          tag: singleMachineCypressInfo
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
