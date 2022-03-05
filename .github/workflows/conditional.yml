@@ -23,7 +23,7 @@ jobs:
           # installed in previous workflow
           install: false
           # Cypress path from root
-          working-directory: rootapp/nestedApp
+          # working-directory: rootapp/nestedApp
           # relative to working directory root
           config-file: cypress.json
           browser: chrome
@@ -40,8 +40,8 @@ jobs:
         if: ${{ github.ref_name == 'conditional' }}
         with:
           install: false
-          working-directory: rootapp/nestedApp
-          config-file: cypress/config/ignoreNestedSpecConfig.json
+          # working-directory: rootapp/nestedApp
+          config-file: cypress/config/ignoreSpecConfig.json
           browser: chrome
           record: true
           tag: conditional
