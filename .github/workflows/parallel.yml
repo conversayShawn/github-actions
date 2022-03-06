@@ -1,4 +1,4 @@
-name: Trigger Status Checks with Pull Request
+name: Testing Multiple Tags
 # run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
@@ -25,13 +25,10 @@ jobs:
           record: true
           parallel: true
           group: 'Actions example'
-          tag: pulledFromStatusChecksBranchParallel
+          tag: testingTags, parallel
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # - if the event is push, the title will be undefined and Cypress will get the commit message from Git information
-          # - if the event is pull_request, then we set the commit message to the pull request title
-          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
