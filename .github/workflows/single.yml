@@ -1,17 +1,22 @@
-name: Cypress Tests
+name: Run Cypress Tests Based on Branch Conditional
+# run workflow on git push
 on: [push]
 jobs:
   cypress-run:
+    # OS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
+        # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
         with:
           record: true
+          tag: basicSingleMachine
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
