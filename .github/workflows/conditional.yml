@@ -22,6 +22,7 @@ jobs:
         with:
           # installed in previous workflow
           install: false
+          working-directory: ./
           # relative to root if not using working-directory
           config-file: cypress.json
           record: true
@@ -37,6 +38,7 @@ jobs:
         if: ${{ github.ref_name == 'conditional' }}
         with:
           install: false
+          working-directory: ./
           config-file: cypress/config/ignoreSpecConfig.json
           record: true
           tag: conditional
