@@ -39,4 +39,5 @@ npm install
 - [Cypress is nested (monorepo)](https://github.com/conversaShawn/github-actions/tree/nestedCypress)
 
 #### Notes
+- MAIN BRANCH DOES NOT RECORD TO THE CYPRESS DASHBOARD
 - If creating project from scratch, be sure to have have `cypress.json`, `package.json`, and `package-lock.json` (or yarn or whatever you choose)
