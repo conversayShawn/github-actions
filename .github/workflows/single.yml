@@ -1,4 +1,5 @@
-name: Cypress Tests
+name: Run Cypress Tests using print-env
+# run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
   cypress-run:
@@ -9,13 +10,16 @@ jobs:
           npm i -g @bahmutov/print-env@2
           print-env GITHUB BUILD ACTIONS || true
       - name: Checkout
+        # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly and run all Cypress tests
       - name: Cypress run
+        # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
         with:
           record: true
           build: npx cypress info
+          tag: singleMachinePrintEnv
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
