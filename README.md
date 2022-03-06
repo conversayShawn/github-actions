@@ -5,3 +5,4 @@ This branch uses the [GitHub Actions `if` conditional](https://docs.github.com/e
 ## Notes:
 - The intended behavior is to ignore `**/2-advanced-examples/**` test files based on a config option when using branch `ignoreSpecConfig`, otherwise all tests will run
 - Be sure to only install Cypress once by adding `install:false`
+- `working-directory` required even if Cypress is at root
