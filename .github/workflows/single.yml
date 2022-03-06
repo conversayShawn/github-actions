@@ -1,30 +1,29 @@
-name: Cypress Tests
+name: Only Run Cypress Tests not Specified in Config
+# run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
   cypress-run:
+    # OS
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
+        # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run
+      - name: Install dependencies
+        # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name != 'ignoreSpecConfig' }}
         with:
-          config-file: cypress.json
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     
+          # just perform install
+          runTests: false
       # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run other config
+      - name: Cypress run if NOT branch conditional
         uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name == 'ignoreSpecConfig' }}
+        if: ${{ github.ref_name != 'conditional' }}
         with:
-          config-file: cypress/config/ignoreSpecConfig.json
+          # installed in previous workflow
+          install: false
           record: true
+          tag: ignoreSpecsFromConfigSingleMachine
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
