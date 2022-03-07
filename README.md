@@ -6,7 +6,7 @@ In each branch of this repo, I will test different commonly asked questions pert
 
 ## Installation
 ```
-## clone this repo to a local directory
+## fork then clone this repo to a local directory
 git clone https://github.com/<your-username>/github-actions.git
 ## cd into the cloned repo
 cd github-actions/
