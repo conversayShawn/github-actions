@@ -1,4 +1,4 @@
-name: Run Cypress Tests Based on Branch Conditional
+name: Run Cypress Tests in a Single Machine
 # run workflow on git push
 on: [push]
 jobs:
