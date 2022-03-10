@@ -4,11 +4,9 @@ on: [push, pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    # https://github.com/cypress-io/cypress-docker-images
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
-      - name: Print CI env variables
-        run: |
-          npm i -g @bahmutov/print-env@2
-          print-env GITHUB BUILD ACTIONS || true
       - name: Checkout
         # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
@@ -18,14 +16,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
-          build: npx cypress info
-          tag: singleMachinePrintEnv
+          tag: singleMachineDocker
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # running here is also fine, but you will need to look in `cypress run` instead of `Cypress tests with cypress info`
-      # - name: Cypress tests with cypress info
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     build: npx cypress info
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
