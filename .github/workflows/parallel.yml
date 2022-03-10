@@ -81,12 +81,12 @@ jobs:
         with:
           runTests: false
       # report machine parameters
-      - run: yarn cypress info
-      - run: node -p 'os.cpus()'
-      - run: yarn types
-      - run: yarn lint
-      - run: yarn test:unit:ci
-      - run: yarn build:ci
+      # - run: yarn cypress info
+      # - run: node -p 'os.cpus()'
+      # - run: yarn types
+      # - run: yarn lint
+      # - run: yarn test:unit:ci
+      # - run: yarn build:ci
 
       - name: Save build folder
         uses: actions/upload-artifact@v2
@@ -106,12 +106,12 @@ jobs:
         with:
           runTests: false
       report machine parameters
-      - run: yarn cypress info
-      - run: node -p 'os.cpus()'
-      - run: yarn types
-      - run: yarn lint
-      - run: yarn test:unit:ci
-      - run: yarn build:ci
+      # - run: yarn cypress info
+      # - run: node -p 'os.cpus()'
+      # - run: yarn types
+      # - run: yarn lint
+      # - run: yarn test:unit:ci
+      # - run: yarn build:ci
 
       - name: Save build folder
         uses: actions/upload-artifact@v2
@@ -147,9 +147,9 @@ jobs:
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          # start: yarn start:ci
+          # wait-on: "http://localhost:3000"
+          # wait-on-timeout: 120
           browser: chrome
           record: true
           parallel: true
@@ -157,7 +157,7 @@ jobs:
           # spec: cypress/tests/ui/*
           tag: parallelDocker
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
@@ -190,17 +190,17 @@ jobs:
       - name: "UI Tests - Chrome - Mobile"
         uses: cypress-io/github-action@v2
         with:
-          config: "viewportWidth=375,viewportHeight=667"
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          # config: "viewportWidth=375,viewportHeight=667"
+          # start: yarn start:ci
+          # wait-on: "http://localhost:3000"
+          # wait-on-timeout: 120
           browser: chrome
           record: true
           parallel: true
-          group: "UI - Chrome - Mobile"
-          spec: cypress/tests/ui/*
+          # group: "UI - Chrome - Mobile"
+          # spec: cypress/tests/ui/*
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
@@ -235,16 +235,16 @@ jobs:
       - name: "UI Tests - Firefox"
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          # start: yarn start:ci
+          # wait-on: "http://localhost:3000"
+          # wait-on-timeout: 120
           browser: firefox
           record: true
           parallel: true
-          group: "UI - Firefox"
-          spec: cypress/tests/ui/*
+          # group: "UI - Firefox"
+          # spec: cypress/tests/ui/*
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
@@ -279,17 +279,17 @@ jobs:
       - name: "UI Tests - Firefox - Mobile"
         uses: cypress-io/github-action@v2
         with:
-          config: "viewportWidth=375,viewportHeight=667"
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          # config: "viewportWidth=375,viewportHeight=667"
+          # start: yarn start:ci
+          # wait-on: "http://localhost:3000"
+          # wait-on-timeout: 120
           browser: firefox
           record: true
           parallel: true
-          group: "UI - Firefox - Mobile"
-          spec: cypress/tests/ui/*
+          # group: "UI - Firefox - Mobile"
+          # spec: cypress/tests/ui/*
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
@@ -321,15 +321,15 @@ jobs:
       - name: "UI Tests - Electron - Windows"
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
+          # start: yarn start:ci
+          # wait-on: "http://localhost:3000"
+          # wait-on-timeout: 120
           record: true
           parallel: true
-          group: "UI - Electron - Windows"
-          spec: cypress/tests/ui/*
+          # group: "UI - Electron - Windows"
+          # spec: cypress/tests/ui/*
         env:
-          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          # CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
