@@ -33,7 +33,3 @@ jobs:
           # Recommended: pass the GitHub token lets this action correctly determine the unique run id necessary to re-run the checks (generates dynamically)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # running here is also fine, but you will need to look in `cypress run` instead of `Cypress tests with cypress info`
-      - name: Cypress tests with cypress info
-        uses: cypress-io/github-action@v2
-        with:
-          build: npx cypress info
