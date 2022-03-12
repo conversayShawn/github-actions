@@ -1,4 +1,4 @@
-name: Run Cypress Tests using print-env
+name: Run Cypress Tests using on Single Machine
 # run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
