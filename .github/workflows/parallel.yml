@@ -59,10 +59,10 @@ jobs:
       # https://glebbahmutov.com/blog/parallel-cypress-tests-gh-action/
       - name: Save built folders 🆙
         uses: actions/upload-artifact@v2
-        # with:
-        #   name: built
-          # path: |
-          #   public
+        with:
+          name: built
+          path: |
+            ./
   test-job:
   #   runs-on: ubuntu-latest
   #   needs: install-job
@@ -87,8 +87,8 @@ jobs:
       # because of "record" and "parallel" parameters these containers will load balance all found tests among themselves
       - name: Download built folders ⏬
         uses: actions/download-artifact@v2
-        # with:
-        #   name: built
+        with:
+          name: built
       - name: Cypress run
         # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
