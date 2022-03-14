@@ -1,12 +1,78 @@
-name: Run Cypress Tests using Docker in Parallel
-# run workflow on git push and git pull
-on: [push, pull_request]
-jobs:
-  test:
-    name: Cypress run
-    # OS
-    runs-on: ubuntu-latest
+# name: Run Cypress Tests using Docker in Parallel
+# # run workflow on git push and git pull
+# on: [push, pull_request]
+# jobs:
+#   test:
+#     name: Cypress run
+#     # OS
+#     runs-on: ubuntu-latest
     
+#     strategy:
+#       # when one test fails, DO NOT cancel the other containers, because this will kill Cypress processes leaving the Dashboard hanging ...
+#       # https://github.com/cypress-io/github-action/issues/48
+#       fail-fast: false
+#       matrix:
+#         # split tests across three containers in parallel
+#         containers: [1, 2, 3]
+#     steps:
+#       - name: Checkout
+#         # checks-out your repository so your workflow can access it
+#         uses: actions/checkout@v2
+#       # because of "record" and "parallel" parameters these containers will load balance all found tests among themselves
+#       - name: Cypress run
+#         # GitHub Action for running Cypress end-to-end tests
+#         uses: cypress-io/github-action@v2
+#         with:
+#           record: true
+#           parallel: true
+#           group: 'Actions example'
+#           tag: parallelDocker
+#         env:
+#           # pass the Dashboard record key as an environment variable
+#           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+#           # Recommended: pass the GitHub token lets this action correctly determine the unique run id necessary to re-run the checks (generates dynamically)
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       # running here is also fine, but you will need to look in `cypress run` instead of `Cypress tests with cypress info`
+
+name: Run Cypress Tests using Docker in Parallel
+on: [push, pull_request]
+# this workflow has two jobs
+# 1. the "install-job" installs everything and saves the build web application as an upload artifact
+# 2. the "test-job" downloads the build site and runs tests
+jobs:
+  install-job:
+    runs-on: ubuntu-latest
+    # https://github.com/cypress-io/cypress-docker-images
+    container: cypress/browsers:node16.5.0-chrome94-ff93
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # only install the dependencies without running any tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          runTests: false
+      # - run: npm run build
+      # only upload the local folders we built / updated
+      #   ./public
+      # TIP: we want to avoid uploading node_modules since it is SLOW
+      # https://glebbahmutov.com/blog/parallel-cypress-tests-gh-action/
+      - name: Save built folders 🆙
+        uses: actions/upload-artifact@v2
+        with:
+          name: built
+          path: |
+            public
+  # test-job:
+  #   runs-on: ubuntu-latest
+  #   needs: install-job
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+
+
+    runs-on: ubuntu-latest
+    needs: install-job
     strategy:
       # when one test fails, DO NOT cancel the other containers, because this will kill Cypress processes leaving the Dashboard hanging ...
       # https://github.com/cypress-io/github-action/issues/48
@@ -19,6 +85,10 @@ jobs:
         # checks-out your repository so your workflow can access it
         uses: actions/checkout@v2
       # because of "record" and "parallel" parameters these containers will load balance all found tests among themselves
+      - name: Download built folders ⏬
+        uses: actions/download-artifact@v2
+        with:
+          name: built
       - name: Cypress run
         # GitHub Action for running Cypress end-to-end tests
         uses: cypress-io/github-action@v2
