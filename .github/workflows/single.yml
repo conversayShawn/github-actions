@@ -1,4 +1,4 @@
-name: Run Cypress Tests Based with Pull Request
+name: Trigger Status Checks with Pull Request
 # run workflow on git push and git pull
 on: [push, pull_request]
 jobs:
@@ -20,3 +20,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # - if the event is push, the title will be undefined and Cypress will get the commit message from Git information
+          # - if the event is pull_request, then we set the commit message to the pull request title
+          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
