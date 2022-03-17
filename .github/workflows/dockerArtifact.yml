@@ -11,25 +11,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2   
-
-      # - name: Persist Docker build cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ./
-      #     # Generate a new cache whenever packages or source files change.
-      #     key: ${{ runner.os }}-docker-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-      #     # If source files changed but packages didn't, rebuild from a prior cache.
-      #     restore-keys: |
-      #       ${{ runner.os }}-docker-${{ hashFiles('package-lock.json') }}-
-
       # only install the dependencies without running any tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
           runTests: false
-      # - run: npm run build
       # only upload the local folders we built / updated
-      #   ./public
+      #   ./
       # TIP: we want to avoid uploading node_modules since it is SLOW
       # https://glebbahmutov.com/blog/parallel-cypress-tests-gh-action/
       - name: Save built folders 🆙
@@ -39,13 +27,6 @@ jobs:
           path: |
             ./
   test-job:
-  #   runs-on: ubuntu-latest
-  #   needs: install-job
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-
     runs-on: ubuntu-latest
     needs: install-job
     strategy:
@@ -77,4 +58,3 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly determine the unique run id necessary to re-run the checks (generates dynamically)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # running here is also fine, but you will need to look in `cypress run` instead of `Cypress tests with cypress info`
