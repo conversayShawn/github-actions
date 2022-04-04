@@ -55,10 +55,10 @@ context('Misc', () => {
       .its('stdout').should('contain', 'Jane Lane')
 
     if (Cypress.platform === 'win32') {
-      cy.exec('print cypress.config.js')
+      cy.exec('print cypress.json')
         .its('stderr').should('be.empty')
     } else {
-      cy.exec('cat cypress.config.js')
+      cy.exec('cat cypress.json')
         .its('stderr').should('be.empty')
 
       cy.exec('pwd')
