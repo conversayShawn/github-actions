@@ -14,6 +14,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           record: true
+          config-file: cypress.config.js
           tag: v10
         env:
           # pass the Dashboard record key as an environment variable

@@ -22,6 +22,7 @@ jobs:
         with:
           record: true
           parallel: true
+          config-file: cypress.config.js
           tag: v10
         env:
           # pass the Dashboard record key as an environment variable
