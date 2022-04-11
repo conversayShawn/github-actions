@@ -16,7 +16,7 @@
     "url": "https://github.com/conversaShawn/github-actions/issues"
   },
   "homepage": "https://github.com/conversaShawn/github-actions#readme",
-  "devDependencies": {
-    "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-404447e397190ebb0f8ce0bb270ea9a806ca78c6/cypress.tgz"
+  "dependencies": {
+    "cypress": "9.0.0"
   }
 }
