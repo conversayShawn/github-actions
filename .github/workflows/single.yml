@@ -4,8 +4,8 @@ on: [push, pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # Cypress Docker image with Chrome v100 and Firefox v98 pre-installed
-    container: cypress/browsers:node16.13.2-chrome100-ff98
+    # Cypress Docker image with Chrome v99 and Firefox v98 pre-installed
+    container: cypress/browsers:node17.8.0-chrome99-ff97-slim
     steps:
       - name: Checkout
         # checks-out your repository so your workflow can access it
