@@ -4,8 +4,8 @@ on: [push, pull_request]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    # https://github.com/cypress-io/cypress-docker-images
-    container: cypress/browsers:node16.5.0-chrome94-ff93
+    # Cypress Docker image with Chrome v100 and Firefox v98 pre-installed
+    container: cypress/browsers:node16.13.2-chrome100-ff98
     steps:
       - name: Checkout
         # checks-out your repository so your workflow can access it
@@ -19,6 +19,14 @@ jobs:
           tag: singleMachineDocker
           browser: chrome
         env:
+          # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          # pass GitHub token to allow accurately detecting a build vs a re-run build
+          # Recommended: pass the GitHub token lets this action correctly determine the unique run id necessary to re-run the checks (generates dynamically)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # - if the event is push, the title will be undefined and Cypress will get the commit message from Git information
+          # - if the event is pull_request, then we set the commit message to the pull request title
+          COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}
+          # allow status checks to remain when getting commit info message
+          COMMIT_INFO_SHA: ${{ github.event.pull_request.head.sha }}
+          # check machine resources
+          DEBUG: 'cypress:server:util:process_profiler'
