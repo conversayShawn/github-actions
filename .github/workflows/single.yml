@@ -8,7 +8,7 @@ jobs:
     # container: cypress/browsers:node17.8.0-chrome99-ff97-slim
     #  tell the CI to stop the job or the individual step if it runs for longer then a given time limit.
     # This is a good practice to ensure the hanging process does not accidentally use up all your CI minutes.
-    timeout-minutes: 5
+    # timeout-minutes: 5
     steps:
       - name: Checkout
         # checks-out your repository so your workflow can access it
