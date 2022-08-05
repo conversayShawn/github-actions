@@ -15,6 +15,7 @@ jobs:
         with:
           record: true
           tag: workflow_dispatch
+          config-file: cypress.config.js
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
