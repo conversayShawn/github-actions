@@ -13,6 +13,7 @@ jobs:
       matrix:
         # split tests across three containers in parallel
         containers: [1, 2, 3]
+        ci-build-id: ${{ needs.prepare.outputs.uuid }}
     steps:
       - name: Checkout
         # checks-out your repository so your workflow can access it
@@ -26,9 +27,8 @@ jobs:
           parallel: true
           tag: workflow_dispatch
           config-file: cypress.config.js
-          ci-build-id: ${{ needs.prepare.outputs.uuid }}
         env:
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
