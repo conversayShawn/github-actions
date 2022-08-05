@@ -1,6 +1,6 @@
-name: Only Run Cypress Tests not Specified in Config
+name: Testing workflow_dispatch
 # run workflow on git push and git pull
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 jobs:
   cypress-run:
     # OS
@@ -11,20 +11,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         # GitHub Action for running Cypress end-to-end tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
-          # just perform install
-          runTests: false
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run if NOT branch conditional
-        uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name != 'conditional' }}
-        with:
-          # installed in previous workflow
-          install: false
           record: true
-          tag: ignoreSpecsFromConfigSingleMachine
+          tag: workflow_dispatch
         env:
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # - if the event is push, the title will be undefined and Cypress will get the commit message from Git information
+          # - if the event is pull_request, then we set the commit message to the pull request title
+          # COMMIT_INFO_MESSAGE: ${{ github.event.pull_request.title }}

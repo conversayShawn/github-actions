@@ -1,6 +1,6 @@
-name: Only Run Cypress Tests not Specified in Config
+name: Testing workflow_dispatch
 # run workflow on git push and git pull
-on: [push, pull_request]
+on: [workflow_dispatch, push, pull_request]
 jobs:
   cypress-run:
     # OS
@@ -19,20 +19,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Install dependencies
         # GitHub Action for running Cypress end-to-end tests
-        uses: cypress-io/github-action@v2
-        with:
-          # just perform install
-          runTests: false
-      # Install NPM dependencies, cache them correctly and run all Cypress tests
-      - name: Cypress run if NOT branch conditional
-        uses: cypress-io/github-action@v2
-        if: ${{ github.ref_name != 'conditional' }}
+        uses: cypress-io/github-action@v4
         with:
           # installed in previous workflow
-          install: false
           record: true
-          tag: ignoreSpecsFromConfigParallel
+          parallel: true
+          tag: workflow_dispatch
         env:
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
