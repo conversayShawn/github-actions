@@ -18,7 +18,8 @@ jobs:
           record: true
           # prints in Cypress run workflow
           build: npx cypress info
-          tag: singleMachineCypressInfo
+          tag: noGHToken
+          config-file: cypress.config.js
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
