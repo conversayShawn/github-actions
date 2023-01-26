@@ -8,17 +8,20 @@ jobs:
     steps:
       - name: Checkout
         # checks-out your repository so your workflow can access it
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         # GitHub Action for running Cypress end-to-end tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         with:
           record: true
           tag: basicSingleMachine
+          config-file: cypress.config.js
         env:
-          # pass the Dashboard record key as an environment variable
+          # pass Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # pass Cloud Project ID as env var
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           # pass GitHub token to allow accurately detecting a build vs a re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
