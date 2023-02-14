@@ -16,7 +16,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           record: true
-          tag: basicSingleMachine-1
+          tag: basicSingleMachine
           config-file: cypress.config.js
         env:
           # pass Cloud record key as an environment variable
